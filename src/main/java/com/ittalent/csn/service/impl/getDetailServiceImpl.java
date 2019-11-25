@@ -56,7 +56,6 @@ public class getDetailServiceImpl implements GetDetailService {
 
     @Override
     public Integer countByCountryAndDate(String countryA,String countryB, LocalDate startTime, LocalDate endTime) {
-        if(!countryA.toUpperCase().equals(countryB.toUpperCase())) {
             List<Event> eventList1 = detailRepositoryCustom.findByDateCustom(startTime, endTime);
             List<Event> allEvents = eventList1.stream().filter(c -> c.getCountry().equalsIgnoreCase(countryA.toUpperCase()))
                     .collect(Collectors.toList());
@@ -64,7 +63,5 @@ public class getDetailServiceImpl implements GetDetailService {
                     .collect(Collectors.toList()));
             allEvents.stream().distinct().collect(Collectors.toList());
             return allEvents.size();
-        }
-        return new Integer(0);
     }
 }

@@ -61,7 +61,9 @@ public class DateApi {
                                                   @Valid @RequestParam(value="endTimeB", required = true)
                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                   LocalDate endTimeB
-    ){
+    ) throws Exception{
+        requestValidator.isValidDateRequest(startTimeA,endTimeA);
+        requestValidator.isValidDateRequest(startTimeB,endTimeB);
         List<Event> e = getDetailService.getByDateExtended(startTimeA, endTimeA, startTimeB, endTimeB);
         return new ResponseEntity<>(e , HttpStatus.OK);
 
@@ -69,13 +71,7 @@ public class DateApi {
 
     @ApiIgnore
     @RequestMapping(value = "/1/save" , method = RequestMethod.PUT)
-    public ResponseEntity<Boolean> saveByDate (@Valid @RequestParam(value="startTime", required = true)
-                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                    LocalDate startTime,
-                                            @Valid @RequestParam(value="endTime", required = true)
-                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                    LocalDate endTime
-    ){
+    public ResponseEntity<Boolean> saveByDate (){
         saveEventDetail.saveEvent();
         return new ResponseEntity<>(Boolean.TRUE , HttpStatus.OK);
 
@@ -86,7 +82,8 @@ public class DateApi {
                                                       Float minMagnitude,
                                               @Valid @RequestParam(value="maxMagnitude", required = true)
                                                       Float maxMagnitude
-    ){
+    )throws Exception{
+        requestValidator.isValidMagnitudeRequest(minMagnitude, maxMagnitude);
         List<Event> e = getDetailService.getByMagnitude(minMagnitude, maxMagnitude);
         return new ResponseEntity<>(e , HttpStatus.OK);
 
