@@ -6,8 +6,14 @@ Proyecto para consultar eventos sismicos en distintos Paises
 - clonar proyecto desde git@github.com:agonzalezcastillo/eval.git
 
 - debes poseer una instancia de mongoDB instalada en tu ordenador y corriendo 
-
-- crear una nueva coleccion que se llame "events" en tu base de datos "local"
+```sh
+$ docker pull mongo
+$ docker run -d -p 27017:27017 -v ~/data:/data/db mongo
+$ docker exec -it mongodb bash
+$ mongo
+$ use local
+$ db.createCollection('events')
+```
  
 - ir a la carpeta raiz del proyecto e iniciar la aplicacion con el siguiente comando
 ```sh
